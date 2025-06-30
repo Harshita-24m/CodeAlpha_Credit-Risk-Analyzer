@@ -94,7 +94,7 @@ final_input_scaled = np.concatenate((scaled_raw_features, engineered_features.va
 
 
 if st.button("Predict Default Risk"):
-    prediction = model.predict(final_input_scaled)[0]
+    prediction = model.predict(final_input_scaled)
     prob = model.predict_proba(final_input_scaled)[0][1]
 
     if prediction == 1:
