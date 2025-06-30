@@ -86,15 +86,24 @@ engineered_features = pd.DataFrame([[
     'limit_util_ratio', 'pay_vs_bill_ratio', 'months_late', 'no_payment_flag',
 
 ])
+# Combine raw + engineered features FIRST
+combined_input = pd.concat([raw_features, engineered_features], axis=1)
+
+# Ensure column order matches training
+combined_input = combined_input[scaler.feature_names_in_]
+
+# Then scale
+final_input_scaled = scaler.transform(combined_input)
+
 
 # Combine scaled raw features and engineered features
 # Ensure the order of columns matches the model's training data
 # You might need to manually order the columns based on your training data
-final_input_scaled = np.concatenate((scaled_raw_features, engineered_features.values), axis=1)
+
 
 
 if st.button("Predict Default Risk"):
-    prediction = model.predict(final_input_scaled)
+    prediction = model.predict(final_input_scaled)[0]
     prob = model.predict_proba(final_input_scaled)[0][1]
 
     if prediction == 1:
