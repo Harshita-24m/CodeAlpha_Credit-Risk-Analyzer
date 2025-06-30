@@ -94,7 +94,6 @@ engineered_features = pd.DataFrame(engineered_features_data, columns=engineered_
 # Combine raw + engineered features
 # Ensure the order of columns matches the training data used for the scaler
 combined_input = pd.concat([raw_features, engineered_features], axis=1)
-
 # Reindex combined_input to match the expected columns from the scaler
 expected_columns = scaler.feature_names_in_
 
